@@ -19,12 +19,14 @@ end = start2 + 1631
 # print(end)
 hour24_data = html[start2:end]
 list1 = hour24_data.split('},')
+# 字符串转成列表
 data24 = []
 for index in range(24):
     if index != 23:
         data24.append(list1[index]+"}")
     if index == 23:
         data24.append(list1[23])
+# 字符串转成词典
 data24_dict_list = []
 for index in range(24):
     data24_dict = json.loads(data24[index])
