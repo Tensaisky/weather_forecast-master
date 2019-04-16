@@ -10,7 +10,6 @@ response=requests.get(url, headers=headers)
 response.encoding='utf-8'
 html = response.text
 start1 = html.find('var hour3data=[')
-# print(start1)
 # print(len('var hour3data=['))
 start2 = start1 + 16
 # print(start2)
