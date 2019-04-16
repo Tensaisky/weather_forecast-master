@@ -10,23 +10,32 @@ response=requests.get(url, headers=headers)
 response.encoding='utf-8'
 html = response.text
 start1 = html.find('var hour3data=[')
+# print(start1)
+# print(len('var hour3data=['))
 start2 = start1 + 16
-end = start2 + 1631
+# print(start2)
+end = start2 + 1700
+# print(end)
 hour24_data = html[start2:end]
+hour24_data = hour24_data.split('],')[0]
+# print(hour24_data)
+# print(type(hour24_data))
 list1 = hour24_data.split('},')
+# print(list1)
 # 字符串转成列表
 data24 = []
-for index in range(24):
-    if index != 23:
+length_data = len(list1)
+for index in range(length_data):
+    if index != length_data-1:
         data24.append(list1[index]+"}")
-    if index == 23:
-        data24.append(list1[23])
+    if index == length_data-1:
+        data24.append(list1[length_data-1])
 # 字符串转成词典
 data24_dict_list = []
-for index in range(24):
+for index in range(length_data):
     data24_dict = json.loads(data24[index])
     # print(data24_dict)
     data24_dict_list.append(data24_dict)
 print('   时间    温度')
-for index in range(24):
+for index in range(len(list1)):
     print('%s %s'%(data24_dict_list[index]['jf'],data24_dict_list[index]['jb']))
