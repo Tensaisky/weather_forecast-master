@@ -30,11 +30,13 @@ for index in range(length_data):
     if index == length_data-1:
         data24.append(list1[length_data-1])
 # 字符串转成词典
+print(data24)
 data24_dict_list = []
 for index in range(length_data):
     data24_dict = json.loads(data24[index])
     # print(data24_dict)
     data24_dict_list.append(data24_dict)
-print('   时间    温度')
-for index in range(len(list1)):
-    print('%s %s'%(data24_dict_list[index]['jf'],data24_dict_list[index]['jb']))
+print(data24_dict_list)
+# print('   时间    温度')
+# for index in range(len(list1)):
+#     print('%s %s'%(data24_dict_list[index]['jf'],data24_dict_list[index]['jb']))
