@@ -1,6 +1,8 @@
+# 得到未来一段时间的预测温度
 import requests
 import json
 
+# 101021700为杨浦区代码
 url='http://www.weather.com.cn/weathern/101021700.shtml'
 headers = {
     # 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) Chrome/50.0.2661.102'
@@ -40,3 +42,10 @@ print(data24_dict_list)
 # print('   时间    温度')
 # for index in range(len(list1)):
 #     print('%s %s'%(data24_dict_list[index]['jf'],data24_dict_list[index]['jb']))
+keys_hour24 = []
+values_hour24 = []
+for index in range(len(data24_dict_list)):
+    keys_hour24.append(data24_dict_list[index]['jf'])
+    values_hour24.append(data24_dict_list[index]['jb'])
+data24_dict_data = dict(zip(keys_hour24,values_hour24))
+print(data24_dict_data)

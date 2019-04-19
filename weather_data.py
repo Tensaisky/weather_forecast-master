@@ -1,7 +1,9 @@
+# 未来的预测温度和过去的温度数据，但是过去数据不好处理，没有很好的过去时间识别方法
 import requests
 import json
 import xlsxwriter
 
+# 101021700为杨浦区代码
 url='http://www.weather.com.cn/weather1dn/101021700.shtml'
 headers = {
     # 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) Chrome/50.0.2661.102'
@@ -37,6 +39,7 @@ for index in range(length_data):
     data24_dict = json.loads(data24[index])
     # print(data24_dict)
     data24_dict_list.append(data24_dict)
+print(data24_dict_list)
 # print('   时间    温度')
 # for index in range(len(list1)):
 #     print('%s %s'%(data24_dict_list[index]['jf'],data24_dict_list[index]['jb']))
@@ -73,3 +76,7 @@ for index in range(length_data_over24):
 # 列表内含词典，通过index和key
 # od21时间（只有几点信息）,od22气温,od25风力,od27相对湿度
 print(data24_over24_dict_list)
+# 这里只含有小时，不含日期列表下标越小，代表越近时间，因为昨天和今天有相同小时，所以需要区分
+# 先找出0时刻下标，小于该下标为今天日期，大于该下标为昨日日期
+# data_time = int(data_time) - 1
+# data_time = str(data_time)
