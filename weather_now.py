@@ -8,7 +8,7 @@ import requests
 import json
 import time
 
-city='杨浦'
+city='崇明'
 url='http://api.map.baidu.com/telematics/v3/weather?location=%s&output=json&ak=TueGDhCvwI6fOrQnLM0qmXxY9N0OkOiQ&callback=?'%city
 #使用requests发送请求，接受返回的结果
 response=requests.get(url)

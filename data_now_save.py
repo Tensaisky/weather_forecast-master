@@ -1,10 +1,17 @@
+# 可以循环三个地点数据，保存到数据库
 import requests
 import json
 import time
 import pymysql
 
-city='杨浦'
-url='http://api.map.baidu.com/telematics/v3/weather?location=%s&output=json&ak=TueGDhCvwI6fOrQnLM0qmXxY9N0OkOiQ&callback=?'%city
+city1='浦东'
+city2='杨浦'
+city3='崇明'
+url_pudong='http://api.map.baidu.com/telematics/v3/weather?location=%s&output=json&ak=TueGDhCvwI6fOrQnLM0qmXxY9N0OkOiQ&callback=?'%city1
+url_yangpu='http://api.map.baidu.com/telematics/v3/weather?location=%s&output=json&ak=TueGDhCvwI6fOrQnLM0qmXxY9N0OkOiQ&callback=?'%city2
+url_chongming='http://api.map.baidu.com/telematics/v3/weather?location=%s&output=json&ak=TueGDhCvwI6fOrQnLM0qmXxY9N0OkOiQ&callback=?'%city3
+
+url = url_pudong
 response=requests.get(url)
 rs_dict=json.loads(response.text)
 error_code=rs_dict['error']
@@ -32,6 +39,12 @@ connection = pymysql.connect(
     charset = 'utf8'
 )
 cursor = connection.cursor()
-effect_row = cursor.execute("UPDATE `weather_yangpu` set `pm25`=%(pm25)s,`temp_max`=%(temp_max)s,`temp_min`=%(temp_min)s,`temp_now`=%(temp_now)s WHERE DATE = %(date)s",date_now_dict)
+
+sql_pudong = "UPDATE `weather_pudong` set `pm25`=%(pm25)s,`temp_max`=%(temp_max)s,`temp_min`=%(temp_min)s,`temp_now`=%(temp_now)s WHERE DATE = %(date)s"
+sql_yangpu = "UPDATE `weather_yangpu` set `pm25`=%(pm25)s,`temp_max`=%(temp_max)s,`temp_min`=%(temp_min)s,`temp_now`=%(temp_now)s WHERE DATE = %(date)s"
+sql_chongming = "UPDATE `weather_chongming` set `pm25`=%(pm25)s,`temp_max`=%(temp_max)s,`temp_min`=%(temp_min)s,`temp_now`=%(temp_now)s WHERE DATE = %(date)s"
+
+sql = sql_pudong
+effect_row = cursor.execute(sql,date_now_dict)
 connection.commit()
 connection.close()

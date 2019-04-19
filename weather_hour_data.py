@@ -3,7 +3,11 @@ import requests
 import json
 
 # 101021700为杨浦区代码
+# 101021100为崇明
+# 101020600为浦东
 url='http://www.weather.com.cn/weathern/101021700.shtml'
+# url='http://www.weather.com.cn/weathern/101021100.shtml'
+# url='http://www.weather.com.cn/weathern/101020600.shtml'
 headers = {
     # 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) Chrome/50.0.2661.102'
     'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Mobile Safari/537.36'
