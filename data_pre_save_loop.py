@@ -65,7 +65,7 @@ while(1):
             res = cursor.execute(sqlExit)
             if res:
                 # 不知道怎么处理了，不想打印信息
-                # print('数据已存在')
+                #  print('数据已存在')
                 do_nothing = 0
             else:
                 sqlUpdate = sqlUpdate_pudong
