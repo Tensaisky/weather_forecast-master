@@ -9,7 +9,7 @@ url_pudong='http://www.weather.com.cn/weathern/101020600.shtml'
 
 while(1):
     for index_for_choose in range(3):
-        print(index_for_choose)
+        # print(index_for_choose)
         if index_for_choose == 0:
             url = url_yangpu
         if index_for_choose == 1:
@@ -61,19 +61,19 @@ while(1):
             charset='utf8'
         )
         cursor = connection.cursor()
-        print(url)
-        print(sqlExit)
-        print(sqlUpdate)
+        # print(url)
+        # print(sqlExit)
+        # print(sqlUpdate)
         for index in range(len(data24_dict_list)):
             res = cursor.execute(sqlExit)
             if res:
                 # 不知道怎么处理了，不想打印信息
-                print('数据已存在')
+                # print('数据已存在')
                 do_nothing = 0
             else:
                 effect_row = cursor.execute(sqlUpdate, data24_dict_list[index])
                 connection.commit()
         connection.close()
-    print('循环了一次')
+    # print('循环了一次')
     sleep(36000)
     

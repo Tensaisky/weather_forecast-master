@@ -4,25 +4,32 @@ import time
 import pymysql
 from time import sleep
 
+# 崇明没有pm25数据，用上海数据代替
 city1='浦东'
 city2='杨浦'
 city3='崇明'
+city='上海'
 url_pudong='http://api.map.baidu.com/telematics/v3/weather?location=%s&output=json&ak=TueGDhCvwI6fOrQnLM0qmXxY9N0OkOiQ&callback=?'%city1
 url_yangpu='http://api.map.baidu.com/telematics/v3/weather?location=%s&output=json&ak=TueGDhCvwI6fOrQnLM0qmXxY9N0OkOiQ&callback=?'%city2
 url_chongming='http://api.map.baidu.com/telematics/v3/weather?location=%s&output=json&ak=TueGDhCvwI6fOrQnLM0qmXxY9N0OkOiQ&callback=?'%city3
+url_shanghai='http://api.map.baidu.com/telematics/v3/weather?location=%s&output=json&ak=TueGDhCvwI6fOrQnLM0qmXxY9N0OkOiQ&callback=?'%city
 sql_pudong = "UPDATE `weather_pudong` set `pm25`=%(pm25)s,`temp_max`=%(temp_max)s,`temp_min`=%(temp_min)s,`temp_now`=%(temp_now)s WHERE DATE = %(date)s"
 sql_yangpu = "UPDATE `weather_yangpu` set `pm25`=%(pm25)s,`temp_max`=%(temp_max)s,`temp_min`=%(temp_min)s,`temp_now`=%(temp_now)s WHERE DATE = %(date)s"
 sql_chongming = "UPDATE `weather_chongming` set `pm25`=%(pm25)s,`temp_max`=%(temp_max)s,`temp_min`=%(temp_min)s,`temp_now`=%(temp_now)s WHERE DATE = %(date)s"
+sql_chongming2 = "UPDATE `weather_chongming` set `pm25`=%(pm25)s WHERE DATE = %(date)s"
 
 
 while(1):
-    for index in range(3):
-        if index == 0:
+    for index_for_choose in range(4):
+        if index_for_choose == 0:
             url = url_pudong
             sql = sql_pudong
-        elif index == 1:
+        elif index_for_choose == 1:
             url = url_yangpu
             sql = sql_yangpu
+        elif index_for_choose == 2:
+            url = url_shanghai
+            sql = sql_chongming2
         else:
             url = url_chongming
             sql = sql_chongming
