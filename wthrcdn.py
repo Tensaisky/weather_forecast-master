@@ -42,6 +42,7 @@ while 1:
                 #取出日期、天气、风级、温度
                 date=weather_dict['date']
                 weather=weather_dict['weather']
+                print(weather)
                 wind=weather_dict['wind']
                 temperature=weather_dict['temperature']
                 print('%s %s %s %s'%(date,weather,wind,temperature))

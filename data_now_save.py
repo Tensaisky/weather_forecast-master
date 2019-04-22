@@ -1,4 +1,5 @@
 # 可以循环三个地点数据，保存到数据库
+# 查询次数有限，作废,改用data_now_save1.py
 import requests
 import json
 import time
