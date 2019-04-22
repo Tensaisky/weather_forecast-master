@@ -11,7 +11,7 @@ url_yangpu='http://www.weather.com.cn/weathern/101021700.shtml'
 url_chongming='http://www.weather.com.cn/weathern/101021100.shtml'
 url_pudong='http://www.weather.com.cn/weathern/101020600.shtml'
 
-url = url_pudong
+url = url_yangpu
 headers = {
     'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Mobile Safari/537.36'
 }
@@ -54,12 +54,12 @@ sqlUpdate_yangpu = 'INSERT INTO `weather_yangpu` (`date`,`temp_pre`) VALUES (%(j
 sqlUpdate_chongming = 'INSERT INTO `weather_chongming` (`date`,`temp_pre`) VALUES (%(jf)s, %(jb)s)'
 
 for index in range(len(data24_dict_list)):
-    sqlExit = sqlExit_pudong
+    sqlExit = sqlExit_yangpu
     res = cursor.execute(sqlExit)
     if res:
         print("数据已存在")
     else:
-        sqlUpdate = sqlUpdate_pudong
+        sqlUpdate = sqlUpdate_yangpu
         effect_row = cursor.execute(sqlUpdate, data24_dict_list[index])
         connection.commit()
 connection.close()

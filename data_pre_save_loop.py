@@ -8,12 +8,13 @@ url_chongming='http://www.weather.com.cn/weathern/101021100.shtml'
 url_pudong='http://www.weather.com.cn/weathern/101020600.shtml'
 
 while(1):
-    for index in range(3):
-        if index == 0:
+    for index_for_choose in range(3):
+        print(index_for_choose)
+        if index_for_choose == 0:
             url = url_yangpu
-        elif index == 1:
+        if index_for_choose == 1:
             url = url_chongming
-        else:
+        if index_for_choose == 2:
             url = url_pudong
             
         headers = {
@@ -39,16 +40,17 @@ while(1):
         for index in range(length_data):
             data24_dict = json.loads(data24[index])
             data24_dict_list.append(data24_dict)
-            
-        if index == 0:
-            sqlExit_yangpu = "SELECT * FROM `weather_yangpu`  WHERE date = '%s'" % (data24_dict_list[index]['jf'])
-            sqlUpdate_yangpu = 'INSERT INTO `weather_yangpu` (`date`,`temp_pre`) VALUES (%(jf)s, %(jb)s)'
-        elif index == 1:
-            sqlExit_chongming = "SELECT * FROM `weather_chongming`  WHERE date = '%s'" % (data24_dict_list[index]['jf'])
-            sqlUpdate_chongming = 'INSERT INTO `weather_chongming` (`date`,`temp_pre`) VALUES (%(jf)s, %(jb)s)'
-        else:
-            sqlExit_pudong = "SELECT * FROM `weather_pudong`  WHERE date = '%s'" % (data24_dict_list[index]['jf'])
-            sqlUpdate_pudong = 'INSERT INTO `weather_pudong` (`date`,`temp_pre`) VALUES (%(jf)s, %(jb)s)'
+        # sqlExit = "SELECT * FROM `weather_yangpu`  WHERE date = '%s'" % (data24_dict_list[index]['jf'])
+        # sqlUpdate = 'INSERT INTO `weather_yangpu` (`date`,`temp_pre`) VALUES (%(jf)s, %(jb)s)'
+        if index_for_choose == 0:
+            sqlExit = "SELECT * FROM `weather_yangpu`  WHERE date = '%s'" % (data24_dict_list[index]['jf'])
+            sqlUpdate = 'INSERT INTO `weather_yangpu` (`date`,`temp_pre`) VALUES (%(jf)s, %(jb)s)'
+        if index_for_choose == 1:
+            sqlExit = "SELECT * FROM `weather_chongming`  WHERE date = '%s'" % (data24_dict_list[index]['jf'])
+            sqlUpdate = 'INSERT INTO `weather_chongming` (`date`,`temp_pre`) VALUES (%(jf)s, %(jb)s)'
+        if index_for_choose == 2:
+            sqlExit = "SELECT * FROM `weather_pudong`  WHERE date = '%s'" % (data24_dict_list[index]['jf'])
+            sqlUpdate = 'INSERT INTO `weather_pudong` (`date`,`temp_pre`) VALUES (%(jf)s, %(jb)s)'
 
         connection = pymysql.connect(
             host='localhost',
@@ -59,16 +61,16 @@ while(1):
             charset='utf8'
         )
         cursor = connection.cursor()
-        
+        print(url)
+        print(sqlExit)
+        print(sqlUpdate)
         for index in range(len(data24_dict_list)):
-            sqlExit = sqlExit_pudong
             res = cursor.execute(sqlExit)
             if res:
                 # 不知道怎么处理了，不想打印信息
-                #  print('数据已存在')
+                print('数据已存在')
                 do_nothing = 0
             else:
-                sqlUpdate = sqlUpdate_pudong
                 effect_row = cursor.execute(sqlUpdate, data24_dict_list[index])
                 connection.commit()
         connection.close()
